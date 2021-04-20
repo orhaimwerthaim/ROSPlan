@@ -6,6 +6,7 @@ add_compile_options(-std=c++11)
 
 ## Find catkin macros and libraries
 find_package(catkin REQUIRED COMPONENTS
+  robotican_demos_upgrade
   roscpp
   rospy
   actionlib
@@ -17,6 +18,7 @@ find_package(catkin REQUIRED COMPONENTS
   rosplan_dependencies
   roslib
   rostest
+rosplan_knowledge_msgs
 )
 
 ###################################
@@ -28,7 +30,7 @@ catkin_package(
   INCLUDE_DIRS include ${catkin_INCLUDE_DIRS}
   LIBRARIES rosplan_action_interface
   CATKIN_DEPENDS roscpp rospy actionlib std_msgs std_srvs diagnostic_msgs
-                 rosplan_dispatch_msgs rosplan_knowledge_msgs roslib rostest
+                 rosplan_dispatch_msgs rosplan_knowledge_msgs roslib rostest robotican_demos_upgrade
   DEPENDS
 )
 
@@ -43,6 +45,40 @@ find_package(FLEX REQUIRED)
 
 # Disable deprecated declarations warning (about std::auto_ptr)
 add_definitions(-Wno-deprecated-declarations)
+
+#Add 
+add_executable(run_planning_control src/RunPlanningControl.cpp)
+add_dependencies(run_planning_control ${catkin_EXPORTED_TARGETS})
+target_link_libraries(run_planning_control ${catkin_LIBRARIES})
+ 
+
+## Declare action interface for Pick action
+add_executable(pickInterface src/ActionInterface/PickActionInterface.cpp src/ActionInterface/RPActionInterface.cpp)
+add_dependencies(pickInterface ${catkin_EXPORTED_TARGETS})
+target_link_libraries(pickInterface ${catkin_LIBRARIES})
+
+
+
+## Declare action interface for Place action
+add_executable(placeInterface src/ActionInterface/PlaceActionInterface.cpp src/ActionInterface/RPActionInterface.cpp)
+add_dependencies(placeInterface ${catkin_EXPORTED_TARGETS})
+target_link_libraries(placeInterface ${catkin_LIBRARIES})
+
+
+
+## Declare action interface for Navigate action
+add_executable(navigateInterface src/ActionInterface/NavigateActionInterface.cpp src/ActionInterface/RPActionInterface.cpp)
+add_dependencies(navigateInterface ${catkin_EXPORTED_TARGETS})
+target_link_libraries(navigateInterface ${catkin_LIBRARIES})
+
+
+# Declare action interface for Sense action  
+add_executable(senseInterface src/ActionInterface/SenseActionInterface.cpp src/ActionInterface/NoKbUpdateActionInterface.cpp)
+add_dependencies(senseInterface ${catkin_EXPORTED_TARGETS})
+target_link_libraries(senseInterface ${catkin_LIBRARIES})
+ 
+
+
 
 ## Declare cpp executables
 add_executable(problemInterface src/ProblemGeneration/ProblemInterface.cpp src/ProblemGeneration/PDDLProblemGenerator.cpp

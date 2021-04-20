@@ -35,5 +35,8 @@
   <run_depend>roslib</run_depend>
   <run_depend>rostest</run_depend>
 
+   <run_depend>robotican_demos_upgrade</run_depend>
+  <build_depend>robotican_demos_upgrade</build_depend>
+
   <export></export>
 </package>
