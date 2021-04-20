@@ -22,7 +22,7 @@
  */
 namespace KCL_rosplan {
 
-	class RPActionInterface
+	class NoKbUpdateActionInterface
 	{
 	
 	protected:
@@ -37,9 +37,7 @@ namespace KCL_rosplan {
 
 		/* action feedback to planning system */
 		ros::Publisher action_feedback_pub;
-
-		/* service handle to PDDL knowledge base */
-		ros::ServiceClient update_knowledge_client;
+ 
 
 		/* action status */
 		bool action_success;
